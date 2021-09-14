@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 @Builder
@@ -14,7 +13,7 @@ import org.springframework.data.annotation.Id;
 public class Product {
 
   @Id
-  private ObjectId _id;
+  private String _id;
 
   public String produto;
 

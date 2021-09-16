@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/product")
@@ -36,11 +36,8 @@ public class BazarController {
 
 
   @GetMapping("/{productId}")
-  public ResponseEntity<Optional<Product>> getProductById(@PathVariable String productId) throws Exception {
-    Optional<Product> product = productRepository.findById(productId);
-    if (product.isEmpty()) {
-      throw new Exception("Product not foun!!!!d");
-    }
+  public ResponseEntity<Product> getProductById(@PathVariable String productId) throws NoSuchElementException {
+    Product product = productRepository.findById(productId).orElseThrow(NoSuchElementException::new);
     return ResponseEntity.ok().body(product);
   }
 }

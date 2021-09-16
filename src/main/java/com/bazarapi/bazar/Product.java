@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 
 @Builder
@@ -15,6 +16,9 @@ public class Product {
   @Id
   private String _id;
 
-  public String produto;
-
+  @NonNull
+  private String name;
+  @NonNull
+  private Number price;
+  private String details;
 }

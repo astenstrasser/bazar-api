@@ -21,4 +21,6 @@ public class Product {
   @NonNull
   private Number price;
   private String details;
+  private String imageUrl;
+  private String imageAltText;
 }

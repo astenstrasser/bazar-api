@@ -45,7 +45,7 @@ class BazarControllerTest {
   @SneakyThrows
   void shouldFindAll() {
     when(productRepository.findAll()).thenReturn(List.of(mockProduct));
-    this.mockMvc.perform(get("/product")).andExpect(status().isOk());
+    this.mockMvc.perform(get("/products")).andExpect(status().isOk());
     verify(productRepository, times(1)).findAll();
   }
 
@@ -53,7 +53,7 @@ class BazarControllerTest {
   @SneakyThrows
   void shouldFindById() {
     when(productRepository.findById(any())).thenReturn(Optional.of(mockProduct));
-    this.mockMvc.perform(get("/product/mock-id")).andExpect(status().isOk());
+    this.mockMvc.perform(get("/products/mock-id")).andExpect(status().isOk());
     verify(productRepository, times(1)).findById(eq("mock-id"));
   }
 
@@ -62,10 +62,10 @@ class BazarControllerTest {
   void shouldCreateProduct() {
     when(productRepository.insert(any(Product.class))).thenReturn(mockProduct);
     this.mockMvc.perform(
-        post("/product")
+        post("/products")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(mockProduct)))
-        .andExpect(status().isCreated()).andExpect(header().string("Location", "/product/mock-id"));
+        .andExpect(status().isCreated()).andExpect(header().string("Location", "/products/mock-id"));
     verify(productRepository, times(1)).insert(eq(mockProduct));
   }
 
@@ -73,7 +73,7 @@ class BazarControllerTest {
   @SneakyThrows
   void shouldReturn404WhenNoProductIsFound() {
     when(productRepository.findById(any())).thenThrow(NoSuchElementException.class);
-    this.mockMvc.perform(get("/product/mock-id")).andExpect(status().is4xxClientError());
+    this.mockMvc.perform(get("/products/mock-id")).andExpect(status().is4xxClientError());
     verify(productRepository, times(1)).findById(eq("mock-id"));
   }
 }

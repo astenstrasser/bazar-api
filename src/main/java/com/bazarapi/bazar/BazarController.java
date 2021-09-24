@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class BazarController {
 
   @Autowired
@@ -31,7 +31,7 @@ public class BazarController {
   @PostMapping
   public ResponseEntity<Product> createProduct(@RequestBody Product product) {
     Product productCreated = productRepository.insert(product);
-    URI location = URI.create(String.format("/product/%s", productCreated.get_id()));
+    URI location = URI.create(String.format("/products/%s", productCreated.get_id()));
 
     return ResponseEntity.created(location).body(productCreated);
   }

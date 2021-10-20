@@ -1,4 +1,4 @@
-package com.bazarapi.bazar;
+package com.bazarapi.bazar.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/products")
-public class BazarController {
+public class ProductController {
 
   @Autowired
   ProductRepository productRepository;
@@ -36,12 +36,9 @@ public class BazarController {
     return ResponseEntity.created(location).body(productCreated);
   }
 
-
   @GetMapping("/{productId}")
   public ResponseEntity<Product> getProductById(@PathVariable String productId) throws NoSuchElementException {
     Product product = productRepository.findById(productId).orElseThrow(NoSuchElementException::new);
     return ResponseEntity.ok().body(product);
   }
 }
-
-

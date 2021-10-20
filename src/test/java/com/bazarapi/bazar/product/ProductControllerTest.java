@@ -1,4 +1,4 @@
-package com.bazarapi.bazar;
+package com.bazarapi.bazar.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -24,9 +24,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(BazarController.class)
-class BazarControllerTest {
-
+@WebMvcTest(ProductController.class)
+class ProductControllerTest {
   @MockBean
   ProductRepository productRepository;
 
@@ -62,10 +61,10 @@ class BazarControllerTest {
   void shouldCreateProduct() {
     when(productRepository.insert(any(Product.class))).thenReturn(mockProduct);
     this.mockMvc.perform(
-        post("/products")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(mockProduct)))
-        .andExpect(status().isCreated()).andExpect(header().string("Location", "/products/mock-id"));
+      post("/products")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(mockProduct)))
+      .andExpect(status().isCreated()).andExpect(header().string("Location", "/products/mock-id"));
     verify(productRepository, times(1)).insert(eq(mockProduct));
   }
 

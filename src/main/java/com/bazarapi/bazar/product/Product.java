@@ -1,4 +1,4 @@
-package com.bazarapi.bazar;
+package com.bazarapi.bazar.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
